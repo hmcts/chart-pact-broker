@@ -9,7 +9,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-  - host: {{ .Values.ingressHost }}
+  - host: {{ required "ingressHost" .Values.ingressHost }}
     http:
       paths:
       - path: /

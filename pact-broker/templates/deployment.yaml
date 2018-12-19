@@ -16,17 +16,17 @@ spec:
         {{- ( include "labels" . ) | indent 8 }}
     spec:
       containers:
-      - image: {{ .Values.image }}
+      - image: {{ required "image " .Values.image  }}
         name: {{ .Release.Name }}
         env:
           - name: PACT_BROKER_DATABASE_HOST
             value: {{ .Release.Name }}-postgresql 
           - name: PACT_BROKER_DATABASE_USERNAME
-            value: {{ .Values.postgresql.postgresqlUsername }}
+            value: {{ required "postgresql.postgresqlUsername " .Values.postgresql.postgresqlUsername  }}
           - name: PACT_BROKER_DATABASE_PASSWORD
-            value: {{ .Values.postgresql.postgresqlPassword }}
+            value: {{ required "postgresql.postgresqlPassword " .Values.postgresql.postgresqlPassword  }}
           - name: PACT_BROKER_DATABASE_NAME
-            value: {{ .Values.postgresql.postgresqlDatabase }}
+            value: {{ required "postgresql.postgresqlDatabase " .Values.postgresql.postgresqlDatabase  }}
           - name: PACT_BROKER_DISABLE_SSL_VERIFICATION
             value: 'true'
           - name: PACT_BROKER_PUBLIC_HEARTBEAT
@@ -35,27 +35,27 @@ spec:
             value: DEBUG
         resources:
           requests:
-            memory: {{ .Values.memoryRequests }}
-            cpu: {{ .Values.cpuRequests }}
+            memory: {{ required "memoryRequests " .Values.memoryRequests  }}
+            cpu: {{ required "cpuRequests " .Values.cpuRequests  }}
           limits:
-            memory: {{ .Values.memoryLimits }}
-            cpu: {{ .Values.cpuLimits }}
+            memory: {{  required "memoryLimits  " .Values.memoryLimits   }}
+            cpu: {{  required "cpuLimits  " .Values.cpuLimits   }}
         ports:
-        - containerPort: {{ .Values.applicationPort }}
+        - containerPort: {{ required "applicationPort " .Values.applicationPort  }}
           name: http
         livenessProbe:
           httpGet:
-            path: {{ .Values.livenessPath }}
-            port: {{ .Values.applicationPort }}
-          initialDelaySeconds: {{ .Values.livenessDelay }}
-          timeoutSeconds: {{ .Values.livenessTimeout }}
-          periodSeconds: {{ .Values.livenessPeriod }}
-          failureThreshold: {{ .Values.livenessFailureThreshold }}
+            path: {{ required "livenessPath" .Values.livenessPath  }}
+            port: {{  required "applicationPort " .Values.applicationPort  }}
+          initialDelaySeconds: {{  required "livenessDelay " .Values.livenessDelay  }}
+          timeoutSeconds: {{  required "livenessTimeout " .Values.livenessTimeout  }}
+          periodSeconds: {{  required "livenessPeriod " .Values.livenessPeriod  }}
+          failureThreshold: {{  required "livenessFailureThreshold  " .Values.livenessFailureThreshold   }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.readinessPath }}
-            port: {{ .Values.applicationPort }}
-          initialDelaySeconds: {{ .Values.readinessDelay }}
-          timeoutSeconds: {{ .Values.readinessTimeout }}
-          periodSeconds: {{ .Values.readinessPeriod }}
+            path: {{ required "readinessPath" .Values.readinessPath   }}
+            port: {{  required "applicationPort" .Values.applicationPort  }}
+          initialDelaySeconds: {{  required "readinessDelay " .Values.readinessDelay  }}
+          timeoutSeconds: {{  required "readinessTimeout " .Values.readinessTimeout  }}
+          periodSeconds: {{  required "readinessPeriod " .Values.readinessPeriod  }}
         imagePullPolicy: IfNotPresent

@@ -1,3 +1,4 @@
+---
 {{/*
 All the common lables needed for the lables sections of the definitions.
 */}}
