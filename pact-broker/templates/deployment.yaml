@@ -19,9 +19,20 @@ spec:
       - image: {{ .Values.image }}
         name: {{ .Release.Name }}
         env:
-        envFrom:
-          - configMapRef:
-              name: {{ .Release.Name }}
+          - name: PACT_BROKER_DATABASE_HOST
+            value: {{ .Release.Name }}-postgresql 
+          - name: PACT_BROKER_DATABASE_USERNAME
+            value: {{ .Values.postgresql.postgresqlUsername }}
+          - name: PACT_BROKER_DATABASE_PASSWORD
+            value: {{ .Values.postgresql.postgresqlPassword }}
+          - name: PACT_BROKER_DATABASE_NAME
+            value: {{ .Values.postgresql.postgresqlDatabase }}
+          - name: PACT_BROKER_DISABLE_SSL_VERIFICATION
+            value: 'true'
+          - name: PACT_BROKER_PUBLIC_HEARTBEAT
+            value: 'true'
+          - name: PACT_BROKER_LOG_LEVEL
+            value: DEBUG
         resources:
           requests:
             memory: {{ .Values.memoryRequests }}

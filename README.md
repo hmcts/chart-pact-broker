@@ -6,10 +6,10 @@
 This chart is intended for the [Pact Broker](https://github.com/pact-foundation/pact_broker/wiki/Overview).
 
 ## Links
-[Github Repository](https://github.com/pact-foundation/pact_broker)
-[Docker Image](https://hub.docker.com/r/dius/pact-broker)
-[Pact Broker Wiki](https://github.com/pact-foundation/pact_broker/wiki/Overview)
-[Thoughtworks blog](https://thoughtworks.github.io/pacto/patterns/cdc/)
+- [Github Repository](https://github.com/pact-foundation/pact_broker)
+- [Docker Image](https://hub.docker.com/r/dius/pact-broker)
+- [Pact Broker Wiki](https://github.com/pact-foundation/pact_broker/wiki/Overview)
+- [Thoughtworks blog](https://thoughtworks.github.io/pacto/patterns/cdc/)
 
 ## Configuration
 The following table lists the configurable parameters of the Java chart and their default values.

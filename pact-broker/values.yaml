@@ -1,16 +1,23 @@
-applicationPort: 4550
-image: hmctssandbox.azurecr.io/hmcts/spring-boot-template
+applicationPort: 80
+image: "dius/pact-broker:2.27.6-1"
 memoryRequests: '512Mi'
 cpuRequests: '100m'
 memoryLimits: '1024Mi'
 cpuLimits: '2500m'
-ingressHost: chart-java.service.core-compute-saat.internal
-readinessPath: '/health'
+ingressHost: pact-broker.service.core-compute-saat.internal
+readinessPath: '/diagnostic/status/heartbeat'
 readinessDelay: 30
 readinessTimeout: 3
 readinessPeriod: 15
-livenessPath: '/health'
+livenessPath: '/diagnostic/status/heartbeat'
 livenessDelay: 30
 livenessTimeout: 3
 livenessPeriod: 15
 livenessFailureThreshold: 3
+
+postgresql:
+  postgresqlUsername: hmcts
+  postgresqlPassword: hmcts
+  postgresqlDatabase: hmcts
+  persistence:
+    enabled: false

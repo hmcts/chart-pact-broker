@@ -4,7 +4,7 @@ name: pact-broker
 version: 0.0.1
 icon: https://github.com/hmcts/chart-java/raw/master/images/icons8-java-50.png
 keywords:
-- pact
-- broker
-- client driven contracts
-- CDC
+  - pact
+  - broker
+  - client driven contracts
+  - CDC
