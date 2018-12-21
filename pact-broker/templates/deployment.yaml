@@ -16,7 +16,7 @@ spec:
         {{- ( include "labels" . ) | indent 8 }}
     spec:
       containers:
-      - image: {{ required "image " .Values.image  }}
+      - image: "dius/pact-broker:2.27.6-1"
         name: {{ .Release.Name }}
         env:
           - name: PACT_BROKER_DATABASE_HOST

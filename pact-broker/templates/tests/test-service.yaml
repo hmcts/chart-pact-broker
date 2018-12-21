@@ -13,5 +13,5 @@ spec:
     env:
       - name: SERVICE_NAME
         value: {{ .Release.Name }}
-    command: ["sh", "-c", "httpstatuscode=$(wget -S http://$SERVICE_NAME/health 2>&1 | grep HTTP/ | awk 'END{print $2}') && [ \"$httpstatuscode\" = \"200\" ]"]
+    command: ["sh", "-c", "httpstatuscode=$(wget -S http://${SERVICE_NAME}/diagnostic/status/heartbeat 2>&1 | grep HTTP/ | awk 'END{print $2}') && [ \"$httpstatuscode\" = \"200\" ]"]
   restartPolicy: Never

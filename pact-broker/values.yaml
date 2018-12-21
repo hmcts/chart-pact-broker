@@ -1,5 +1,4 @@
 applicationPort: 80
-image: "dius/pact-broker:2.27.6-1"
 memoryRequests: '512Mi'
 cpuRequests: '100m'
 memoryLimits: '1024Mi'
@@ -20,4 +19,7 @@ postgresql:
   postgresqlPassword: hmcts
   postgresqlDatabase: hmcts
   persistence:
-    enabled: false
+    enabled: true
+    existingClaim: pact-broker-data
+    storageClass: "managed-premium"
+    size: 50Gi
