@@ -3,7 +3,7 @@ memoryRequests: '512Mi'
 cpuRequests: '100m'
 memoryLimits: '1024Mi'
 cpuLimits: '2500m'
-ingressHost: pact-broker.service.core-compute-saat.internal
+ingressHost: pact-broker.service.core-compute-aat.internal
 readinessPath: '/diagnostic/status/heartbeat'
 readinessDelay: 30
 readinessTimeout: 3
