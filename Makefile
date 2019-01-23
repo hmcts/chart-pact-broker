@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := all
 CHART := pact-broker
 RELEASE := chart-${CHART}-release
-NAMESPACE := chart-tests
+NAMESPACE := chart-tests-pact
 TEST := ${RELEASE}-test-service
 ACR := hmctssandbox
 AKS_RESOURCE_GROUP := cnp-aks-sandbox-rg
@@ -20,7 +20,7 @@ lint:
 	helm lint ${CHART}
 
 deploy:
-	helm install ${CHART} --name ${RELEASE} --namespace ${NAMESPACE} -f ci-values.yaml --wait --timeout 60
+	helm install ${CHART} --name ${RELEASE} --namespace ${NAMESPACE} -f ci-values.yaml --wait --timeout 600
 
 test:
 	helm test ${RELEASE}
