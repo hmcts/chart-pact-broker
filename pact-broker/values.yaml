@@ -13,13 +13,4 @@ livenessDelay: 30
 livenessTimeout: 3
 livenessPeriod: 15
 livenessFailureThreshold: 3
-
-postgresql:
-  postgresqlUsername: hmcts
-  postgresqlPassword: hmcts
-  postgresqlDatabase: hmcts
-  persistence:
-    enabled: true
-    existingClaim: pact-broker-data
-    storageClass: "managed-premium"
-    size: 50Gi
+resourceGroup: pact-broker-sandbox-mgmt

@@ -1,0 +1,27 @@
+---
+#
+# Service Catalog Postgresql Instance
+#
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: {{ .Release.Name }}-postgresql-instance
+spec:
+  clusterServiceClassExternalName: azure-postgresql-9-6
+  clusterServicePlanExternalName: basic
+  parameters:
+    location: uksouth
+    resourceGroup: {{ required "resourceGroup " .Values.resourceGroup }}
+---
+#
+# The binding.  This will return the secret with connection details, etc.
+#
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: {{ .Release.Name }}-postgresql-binding
+spec:
+  instanceRef:
+    name: {{ .Release.Name }}-postgresql-instance
+  secretName: {{ .Release.Name }}-postgresql-config
+---

@@ -20,19 +20,39 @@ spec:
         name: {{ .Release.Name }}
         env:
           - name: PACT_BROKER_DATABASE_HOST
-            value: {{ .Release.Name }}-postgresql 
+            valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql-config
+                  key: host
+          - name: PACT_BROKER_DATABASE_PORT
+            valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql-config
+                  key: port
           - name: PACT_BROKER_DATABASE_USERNAME
-            value: {{ required "postgresql.postgresqlUsername " .Values.postgresql.postgresqlUsername  }}
+            valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql-config
+                  key: username
           - name: PACT_BROKER_DATABASE_PASSWORD
-            value: {{ required "postgresql.postgresqlPassword " .Values.postgresql.postgresqlPassword  }}
+            valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql-config
+                  key: password
           - name: PACT_BROKER_DATABASE_NAME
-            value: {{ required "postgresql.postgresqlDatabase " .Values.postgresql.postgresqlDatabase  }}
+            valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql-config
+                  key: database
           - name: PACT_BROKER_DISABLE_SSL_VERIFICATION
-            value: 'true'
+            valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql-config
+                  key: sslRequired
           - name: PACT_BROKER_PUBLIC_HEARTBEAT
             value: 'true'
           - name: PACT_BROKER_LOG_LEVEL
-            value: WARN
+            value: INFO
         resources:
           requests:
             memory: {{ required "memoryRequests " .Values.memoryRequests  }}
