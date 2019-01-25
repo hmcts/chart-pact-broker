@@ -1,2 +1,9 @@
 ingressHost: chart-pact-broker.service.core-compute-preview.internal
-resourceGroup: pact-broker-chart-tests
+databaseType: pod
+
+postgresql:
+  postgresqlUsername: hmcts
+  postgresqlPassword: hmcts
+  postgresqlDatabase: hmcts
+  persistence:
+    enabled: false

@@ -19,6 +19,7 @@ spec:
       - image: "dius/pact-broker:2.27.6-1"
         name: {{ .Release.Name }}
         env:
+          {{- if eq .Values.databaseType "osba" }}}}
           - name: PACT_BROKER_DATABASE_HOST
             valueFrom:
                 secretKeyRef:
@@ -49,6 +50,33 @@ spec:
                 secretKeyRef:
                   name: {{ .Release.Name }}-postgresql-config
                   key: sslRequired
+          {{- else if eq .Values.databaseType "pod" }}
+          - name: PACT_BROKER_DATABASE_HOST
+            value: {{ .Release.Name }}-postgresql 
+          - name: PACT_BROKER_DATABASE_PORT
+            value: "5432"
+          - name: PACT_BROKER_DATABASE_USERNAME
+            value: {{ required "postgresql.postgresqlUsername " .Values.postgresql.postgresqlUsername  }}
+          - name: PACT_BROKER_DATABASE_PASSWORD
+            value: {{ required "postgresql.postgresqlPassword " .Values.postgresql.postgresqlPassword  }}
+          - name: PACT_BROKER_DATABASE_NAME
+            value: {{ required "postgresql.postgresqlDatabase " .Values.postgresql.postgresqlDatabase  }}
+          - name: PACT_BROKER_DISABLE_SSL_VERIFICATION
+            value: "true"
+          {{- else }}
+          - name: PACT_BROKER_DATABASE_HOST
+            value: {{ required "postgresqlHost " .Values.postgresqlHost }}
+          - name: PACT_BROKER_DATABASE_PORT
+            value: {{ default "5432" .Values.postgresqlPort }}
+          - name: PACT_BROKER_DATABASE_USERNAME
+            value: {{ required "postgresqlUsername " .Values.postgresqlUsername }}
+          - name: PACT_BROKER_DATABASE_PASSWORD
+            value: {{ required "postgresqlPassword " .Values.postgresqlPassword }}
+          - name: PACT_BROKER_DATABASE_NAME
+            value: {{ required "postgresqlDatabase " .Values.postgresqlDatabase }}
+          - name: PACT_BROKER_DISABLE_SSL_VERIFICATION
+            value: {{ default "true" .Values.postgresqlEnableSsl }}
+          {{- end }}
           - name: PACT_BROKER_PUBLIC_HEARTBEAT
             value: 'true'
           - name: PACT_BROKER_LOG_LEVEL

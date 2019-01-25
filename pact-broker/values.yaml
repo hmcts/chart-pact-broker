@@ -13,5 +13,7 @@ livenessDelay: 30
 livenessTimeout: 3
 livenessPeriod: 15
 livenessFailureThreshold: 3
-resourceGroup: pact-broker-sandbox-mgmt
-postgresqlPlan: general-purpose
+
+databaseType: external   # external, pod, osba
+resourceGroup: pact-broker-sandbox-mgmt   # osba only
+postgresqlPlan: general-purpose   # osba only
