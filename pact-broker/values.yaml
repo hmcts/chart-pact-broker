@@ -14,6 +14,8 @@ livenessTimeout: 3
 livenessPeriod: 15
 livenessFailureThreshold: 3
 
-databaseType: external   # external, pod, osba
+databaseType: external   # external, pod, osba. Note: for pod the 'postgresql-pod' tag below needs to be true
+tags:
+  postgresql-pod: false
 resourceGroup: pact-broker-sandbox-mgmt   # osba only
 postgresqlPlan: general-purpose   # osba only
