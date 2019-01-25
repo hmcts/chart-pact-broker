@@ -8,7 +8,7 @@ metadata:
   name: {{ .Release.Name }}-postgresql-instance
 spec:
   clusterServiceClassExternalName: azure-postgresql-9-6
-  clusterServicePlanExternalName: basic
+  clusterServicePlanExternalName: {{ required "postgresqlPlan " .Values.postgresqlPlan }}
   parameters:
     location: uksouth
     resourceGroup: {{ required "resourceGroup " .Values.resourceGroup }}
