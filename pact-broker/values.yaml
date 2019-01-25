@@ -14,3 +14,4 @@ livenessTimeout: 3
 livenessPeriod: 15
 livenessFailureThreshold: 3
 resourceGroup: pact-broker-sandbox-mgmt
+postgresqlPlan: general-purpose
