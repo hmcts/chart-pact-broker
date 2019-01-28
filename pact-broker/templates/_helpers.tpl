@@ -13,7 +13,7 @@ app.kubernetes.io/instance: {{ .Release.Name -}}
   {{- if eq .Values.subscriptionId "bf308a5c-0624-4334-8ff8-8dca9fd43783"}}
   {{- "infra-vault-sandbox" -}}
   {{- else }}
-  {{- "infra-vault-nonprod" -}}
+  {{- "infra-vault-prod" -}}
   {{- end }}
 {{- end }}
 
@@ -21,7 +21,7 @@ app.kubernetes.io/instance: {{ .Release.Name -}}
   {{- if eq .Values.subscriptionId "bf308a5c-0624-4334-8ff8-8dca9fd43783"}}
   {{- "cnp-core-infra" -}}
   {{- else }}
-  {{- "cnp-core-infra" -}}
+  {{- "core-infra-prod" -}}
   {{- end }}
 {{- end }}
 
