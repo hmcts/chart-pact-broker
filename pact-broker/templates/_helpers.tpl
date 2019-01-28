@@ -8,3 +8,20 @@ helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/instance: {{ .Release.Name -}}
 {{- end -}}
+
+{{- define "pact.vault" }}
+  {{- if eq .Values.subscriptionId "bf308a5c-0624-4334-8ff8-8dca9fd43783"}}
+  {{- "infra-vault-sandbox" -}}
+  {{- else }}
+  {{- "infra-vault-nonprod" -}}
+  {{- end }}
+{{- end }}
+
+{{- define "pact.resourcegroup" }}
+  {{- if eq .Values.subscriptionId "bf308a5c-0624-4334-8ff8-8dca9fd43783"}}
+  {{- "cnp-core-infra" -}}
+  {{- else }}
+  {{- "cnp-core-infra" -}}
+  {{- end }}
+{{- end }}
+

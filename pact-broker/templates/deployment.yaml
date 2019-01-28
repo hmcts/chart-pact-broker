@@ -15,9 +15,37 @@ spec:
       labels:
         {{- ( include "labels" . ) | indent 8 }}
     spec:
+      {{- if eq .Values.databaseType "external" }}
+      volumes:
+        - name: kvcreds
+          flexVolume:
+            driver: "azure/kv"
+            secretRef:
+              name: kvcreds 
+            options:
+              usepodidentity: "false"
+              subscriptionid: {{ .Values.subscriptionId }}
+              tenantid: {{ .Values.tenantId }}
+              keyvaultname: {{ include "pact.vault" . | quote }}
+              resourcegroup: {{ include "pact.resourcegroup" . | quote }}
+              keyvaultobjectnames: "pact-db-user;pact-db-password"
+              keyvaultobjecttypes: "secret;secret" # OPTIONS: secret, key, cert
+      {{- end }}
       containers:
       - image: "dius/pact-broker:2.27.6-1"
         name: {{ .Release.Name }}
+        {{- if eq .Values.databaseType "external" }}
+        command: 
+          - "/bin/sh"
+          - "-c" 
+          - "export PACT_BROKER_DATABASE_USERNAME=$(cat /kvmnt/pact-db-user)" 
+          - "export PACT_BROKER_DATABASE_PASSWORD=$(cat /kvmnt/pact-db-password)"
+          - "/sbin/my_init"
+        volumeMounts:
+        - name: kvcreds
+          mountPath: /kvmnt
+          readOnly: true
+        {{- end }}
         env:
           {{- if eq .Values.databaseType "osba" }}}}
           - name: PACT_BROKER_DATABASE_HOST
@@ -63,15 +91,11 @@ spec:
             value: {{ required "postgresql.postgresqlDatabase " .Values.postgresql.postgresqlDatabase  }}
           - name: PACT_BROKER_DISABLE_SSL_VERIFICATION
             value: "true"
-          {{- else }}
+          {{- else if eq .Values.databaseType "external" }}
           - name: PACT_BROKER_DATABASE_HOST
             value: {{ required "postgresqlHost " .Values.postgresqlHost }}
           - name: PACT_BROKER_DATABASE_PORT
             value: {{ default "5432" .Values.postgresqlPort }}
-          - name: PACT_BROKER_DATABASE_USERNAME
-            value: {{ required "postgresqlUsername " .Values.postgresqlUsername }}
-          - name: PACT_BROKER_DATABASE_PASSWORD
-            value: {{ required "postgresqlPassword " .Values.postgresqlPassword }}
           - name: PACT_BROKER_DATABASE_NAME
             value: {{ required "postgresqlDatabase " .Values.postgresqlDatabase }}
           - name: PACT_BROKER_DISABLE_SSL_VERIFICATION
