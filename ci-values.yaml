@@ -1,4 +1,4 @@
-ingressHost: chart-pact-broker.service.core-compute-preview.internal
+ingressHost: pact-broker.platform.hmcts.net
 databaseType: pod
 
 postgresql:
