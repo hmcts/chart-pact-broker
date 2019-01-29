@@ -38,9 +38,7 @@ spec:
         command: 
           - "/bin/sh"
           - "-c" 
-          - "export PACT_BROKER_DATABASE_USERNAME=$(cat /kvmnt/pact-db-user)" 
-          - "export PACT_BROKER_DATABASE_PASSWORD=$(cat /kvmnt/pact-db-password)"
-          - "/sbin/my_init"
+          - "export PACT_BROKER_DATABASE_USERNAME=$(cat /kvmnt/pact-db-user); export PACT_BROKER_DATABASE_PASSWORD=$(cat /kvmnt/pact-db-password); /sbin/my_init"
         volumeMounts:
         - name: kvcreds
           mountPath: /kvmnt
