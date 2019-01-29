@@ -95,11 +95,11 @@ spec:
           - name: PACT_BROKER_DATABASE_HOST
             value: {{ required "postgresqlHost " .Values.postgresqlHost }}
           - name: PACT_BROKER_DATABASE_PORT
-            value: {{ default "5432" .Values.postgresqlPort }}
+            value: {{ .Values.postgresqlPort | default "5432" | quote }}
           - name: PACT_BROKER_DATABASE_NAME
             value: {{ required "postgresqlDatabase " .Values.postgresqlDatabase }}
           - name: PACT_BROKER_DISABLE_SSL_VERIFICATION
-            value: {{ default "true" .Values.postgresqlEnableSsl }}
+            value: {{ .Values.postgresqlEnableSsl | default "true" | quote }}
           {{- end }}
           - name: PACT_BROKER_PUBLIC_HEARTBEAT
             value: 'true'
