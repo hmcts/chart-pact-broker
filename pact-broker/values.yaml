@@ -20,7 +20,8 @@ livenessFailureThreshold: 3
 databaseType: external   # external, pod, osba. Note: for pod the 'postgresql-pod' tag below needs to be true
 tags:
   postgresql-pod: false
+postgresqlServerName: "pact-broker-mgmt-sandbox"
 postgresqlHost: "pact-broker-mgmt-sandbox.postgres.database.azure.com"
 postgresqlDatabase: "pact"
-resourceGroup: pact-broker-sandbox-mgmt   # osba only
+resourceGroup: pact-broker-mgmt-sandbox   # osba only
 postgresqlPlan: general-purpose   # osba only
