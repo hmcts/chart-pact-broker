@@ -16,18 +16,19 @@ spec:
         {{- ( include "labels" . ) | indent 8 }}
     spec:
       {{- if eq .Values.databaseType "external" }}
-      volumes:
+      {{- $aadIdentityName := .Values.aadIdentityName }}
+        volumes:
         - name: kvcreds
           flexVolume:
             driver: "azure/kv"
+            {{- if not $aadIdentityName }}
             secretRef:
-              name: kvcreds 
+              name: kvcreds
+            {{- end}}
             options:
-              usepodidentity: "false"
-              subscriptionid: {{ .Values.subscriptionId }}
+              usepodidentity: "{{ if $aadIdentityName }}true{{ else }}false{{ end}}"
               tenantid: {{ .Values.tenantId }}
-              keyvaultname: {{ include "pact.vault" . | quote }}
-              resourcegroup: {{ include "pact.resourcegroup" . | quote }}
+              keyvaultname: {{ .Values.vaultName }}
               keyvaultobjectnames: "pact-db-user;pact-db-password"
               keyvaultobjecttypes: "secret;secret" # OPTIONS: secret, key, cert
       {{- end }}
@@ -35,9 +36,9 @@ spec:
       - image: "dius/pact-broker:2.27.6-1"
         name: {{ .Release.Name }}
         {{- if eq .Values.databaseType "external" }}
-        command: 
+        command:
           - "/bin/sh"
-          - "-c" 
+          - "-c"
           - "export PACT_BROKER_DATABASE_USERNAME=$(cat /kvmnt/pact-db-user)@{{- required "postgresql.postgresqlServerName " .Values.postgresqlServerName -}}; export PACT_BROKER_DATABASE_PASSWORD=$(cat /kvmnt/pact-db-password); /sbin/my_init"
         volumeMounts:
         - name: kvcreds
@@ -78,7 +79,7 @@ spec:
                   key: sslRequired
           {{- else if eq .Values.databaseType "pod" }}
           - name: PACT_BROKER_DATABASE_HOST
-            value: {{ .Release.Name }}-postgresql 
+            value: {{ .Release.Name }}-postgresql
           - name: PACT_BROKER_DATABASE_PORT
             value: "5432"
           - name: PACT_BROKER_DATABASE_USERNAME
