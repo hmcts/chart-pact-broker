@@ -17,7 +17,7 @@ spec:
     spec:
       {{- if eq .Values.databaseType "external" }}
       {{- $aadIdentityName := .Values.aadIdentityName }}
-        volumes:
+      volumes:
         - name: kvcreds
           flexVolume:
             driver: "azure/kv"
