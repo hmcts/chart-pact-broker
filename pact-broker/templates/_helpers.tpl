@@ -7,6 +7,9 @@ app.kubernetes.io/name: {{ .Release.Name }}
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/instance: {{ .Release.Name -}}
+{{- if .Values.aadIdentityName }}
+aadpodidbinding: {{ .Values.aadIdentityName }}
+{{- end }}
 {{- end -}}
 
 {{- define "pact.vault" }}
@@ -16,12 +19,3 @@ app.kubernetes.io/instance: {{ .Release.Name -}}
   {{- "infra-vault-prod" -}}
   {{- end }}
 {{- end }}
-
-{{- define "pact.resourcegroup" }}
-  {{- if eq .Values.subscriptionId "bf308a5c-0624-4334-8ff8-8dca9fd43783"}}
-  {{- "cnp-core-infra" -}}
-  {{- else }}
-  {{- "core-infra-prod" -}}
-  {{- end }}
-{{- end }}
-
