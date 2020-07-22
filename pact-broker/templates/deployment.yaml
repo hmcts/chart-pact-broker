@@ -33,7 +33,7 @@ spec:
               keyvaultobjecttypes: "secret;secret" # OPTIONS: secret, key, cert
       {{- end }}
       containers:
-      - image: "dius/pact-broker:2.27.6-1"
+      - image: "dius/pact-broker:2.58.2.0"
         name: {{ .Release.Name }}
         {{- if eq .Values.databaseType "external" }}
         command:
