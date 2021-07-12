@@ -16,21 +16,13 @@ spec:
         {{- ( include "labels" . ) | indent 8 }}
     spec:
       {{- if eq .Values.databaseType "external" }}
-      {{- $aadIdentityName := .Values.aadIdentityName }}
       volumes:
-        - name: kvcreds
-          flexVolume:
-            driver: "azure/kv"
-            {{- if not $aadIdentityName }}
-            secretRef:
-              name: kvcreds
-            {{- end}}
-            options:
-              usepodidentity: "{{ if $aadIdentityName }}true{{ else }}false{{ end}}"
-              tenantid: {{ .Values.tenantId }}
-              keyvaultname: {{ .Values.vaultName }}
-              keyvaultobjectnames: "pact-db-user;pact-db-password"
-              keyvaultobjecttypes: "secret;secret" # OPTIONS: secret, key, cert
+        - csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ .Release.Name }}
+          name: kvcreds
       {{- end }}
       containers:
       - image: {{  required "image " .Values.image }}
