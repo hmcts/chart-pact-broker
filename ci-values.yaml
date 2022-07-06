@@ -2,9 +2,13 @@ ingressHost: pact-broker.platform.hmcts.net
 databaseType: pod
 
 postgresql:
-  postgresqlUsername: hmcts
-  postgresqlPassword: hmcts
-  postgresqlDatabase: hmcts
+  auth:
+    username: "hmcts"
+    password: "hmcts"
+    database: "hmcts"
+  primary:
+    persistence:
+      enabled: false
   resources:
     requests:
       cpu: 25m
