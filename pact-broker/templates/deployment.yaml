@@ -75,11 +75,11 @@ spec:
           - name: PACT_BROKER_DATABASE_PORT
             value: "5432"
           - name: PACT_BROKER_DATABASE_USERNAME
-            value: {{ required "postgresql.postgresqlUsername " .Values.postgresql.postgresqlUsername  }}
+            value: {{ required "postgresql.auth.username " .Values.postgresql.auth.username }}
           - name: PACT_BROKER_DATABASE_PASSWORD
-            value: {{ required "postgresql.postgresqlPassword " .Values.postgresql.postgresqlPassword  }}
+            value: {{ required "postgresql.auth.password " .Values.postgresql.auth.password }}
           - name: PACT_BROKER_DATABASE_NAME
-            value: {{ required "postgresql.postgresqlDatabase " .Values.postgresql.postgresqlDatabase  }}
+            value: {{ required "postgresql.auth.database " .Values.postgresql.auth.database  }}
           - name: PACT_BROKER_DISABLE_SSL_VERIFICATION
             value: "true"
           {{- else if eq .Values.databaseType "external" }}
