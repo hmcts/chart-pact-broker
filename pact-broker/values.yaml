@@ -17,6 +17,7 @@ livenessDelay: 30
 livenessTimeout: 3
 livenessPeriod: 15
 livenessFailureThreshold: 3
+enableTls: true
 
 databaseType: external   # external, pod, osba. Note: for pod the 'postgresql-pod' tag below needs to be true
 tags:
