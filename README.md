@@ -3,7 +3,7 @@
 [![Build Status](https://dev.azure.com/hmcts/CNP/_apis/build/status/Helm%20Charts/chart-pact-broker)](https://dev.azure.com/hmcts/CNP/_build/latest?definitionId=62)
 
 
-This chart is intended for the [Pact Broker](https://github.com/pact-foundation/pact_broker/wiki/Overview).
+This chart is intended for the [Pact Broker](https://github.com/pact-foundation/pact_broker/wiki/Overview)..
 
 ## Links
 - [Github Repository](https://github.com/pact-foundation/pact_broker)
