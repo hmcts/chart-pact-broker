@@ -10,7 +10,7 @@ keywords:
   - CDC
 dependencies:
   - name: postgresql
-    version: 11.8.1
+    version: 11.8.2
     repository: https://charts.bitnami.com/bitnami
     tags:
       - postgresql-pod
