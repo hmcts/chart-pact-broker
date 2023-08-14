@@ -1,7 +1,7 @@
 apiVersion: v2
 description: A Helm chart for HMCTS Pact broker deployment
 name: pact-broker
-version: 0.3.2
+version: 0.3.3
 icon: https://github.com/hmcts/chart-java/raw/master/images/icons8-java-50.png
 keywords:
   - pact
@@ -10,7 +10,7 @@ keywords:
   - CDC
 dependencies:
   - name: postgresql
-    version: 12.2.2
+    version: 12.8.2
     repository: https://charts.bitnami.com/bitnami
     tags:
       - postgresql-pod
