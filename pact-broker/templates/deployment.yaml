@@ -24,6 +24,7 @@ spec:
               secretProviderClass: {{ .Release.Name }}
           name: kvcreds
       {{- end }}
+      serviceAccountName: {{ .Release.Namespace }}
       containers:
       - image: {{  required "image " .Values.image }}
         name: {{ .Release.Name }}
