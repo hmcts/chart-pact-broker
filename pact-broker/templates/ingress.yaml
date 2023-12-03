@@ -6,7 +6,6 @@ metadata:
   labels:
     {{- ( include "labels" . ) | indent 4 }}
   annotations:
-    kubernetes.io/ingress.class: traefik
     {{- if eq .Values.enableTls true }}
     traefik.ingress.kubernetes.io/router.tls: "true"
     {{- else }}
