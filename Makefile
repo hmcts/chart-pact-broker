@@ -11,8 +11,8 @@ setup:
     az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER}
 
 clean:
-    -helm uninstall ${RELEASE}
-    -kubectl delete pod ${TEST} -n ${NAMESPACE}
+    helm uninstall ${RELEASE}
+    kubectl delete pod ${TEST} -n ${NAMESPACE}
 
 lint:
     helm lint ${CHART}
