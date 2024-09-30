@@ -11,16 +11,16 @@ setup:
     az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER}
 
 clean:
-    helm uninstall ${RELEASE}
-    kubectl delete pod ${TEST} -n ${NAMESPACE}
+    -helm uninstall ${RELEASE}
+    -kubectl delete pod ${TEST} -n ${NAMESPACE}
 
 lint:
     helm lint ${CHART}
 
 package:
-	helm package ${CHART}
+    helm package ${CHART}
 
-push: 
+push:
     helm push ${CHART}-0.1.0.tgz oci://$(ACR).azurecr.io/helm
 
 deploy:
