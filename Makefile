@@ -8,23 +8,27 @@ AKS_RESOURCE_GROUP := cnp-aks-sandbox-rg
 AKS_CLUSTER := cnp-aks-sandbox-cluster
 
 setup:
-	az configure --defaults acr=${ACR}
-	az acr helm repo add
-	az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER}
+    az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER}
 
 clean:
-	-helm delete --purge ${RELEASE}
-	-kubectl delete pod ${TEST} -n ${NAMESPACE}
+    -helm uninstall ${RELEASE}
+    -kubectl delete pod ${TEST} -n ${NAMESPACE}
 
 lint:
-	helm lint ${CHART}
+    helm lint ${CHART}
+
+package:
+    helm package ${CHART}
+
+push:
+    helm push ${CHART}-0.1.0.tgz oci://$(ACR).azurecr.io/helm
 
 deploy:
-	helm install ${CHART} --name ${RELEASE} --namespace ${NAMESPACE} -f ci-values.yaml --wait --timeout 600
+    helm install ${RELEASE} oci://$(ACR).azurecr.io/helm/${CHART} --namespace ${NAMESPACE} -f ci-values.yaml --wait --timeout 600s
 
 test:
-	helm test ${RELEASE}
+    helm test ${RELEASE}
 
-all: setup clean lint deploy test
+all: setup clean lint package push deploy test
 
-.PHONY: setup clean lint deploy test all
+.PHONY: setup clean lint package push deploy test all
