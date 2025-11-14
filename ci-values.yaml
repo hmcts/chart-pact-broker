@@ -1,7 +1,7 @@
 global:
   security:
     allowInsecureImages: true
-    
+
 ingressHost: pact-broker.platform.hmcts.net
 databaseType: pod
 
@@ -11,8 +11,9 @@ postgresql:
     password: "hmcts"
     database: "hmcts"
   image:
-    registry: hmctssandbox.azurecr.io
+    registry: hmctspublic.azurecr.io
     repository: imported/bitnami/postgresql
+    tag: 17.5.0-debian-12-r20
   primary:
     persistence:
       enabled: false
