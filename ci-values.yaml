@@ -6,6 +6,9 @@ postgresql:
     username: "hmcts"
     password: "hmcts"
     database: "hmcts"
+  image:
+    registry: hmctssandbox.azurecr.io
+    repository: imported/bitnami/postgresql
   primary:
     persistence:
       enabled: false
