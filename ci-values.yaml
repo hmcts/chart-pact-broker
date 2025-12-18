@@ -13,7 +13,7 @@ postgresql:
   image:
     registry: hmctssbox.azurecr.io
     repository: imported/bitnami/postgresql
-    tag: 17.5.0-debian-12-r20
+    tag: latest
   primary:
     persistence:
       enabled: false
