@@ -24,6 +24,15 @@ jobs:
   pool:
     vmImage: ${{ variables.agentPool }}
   steps:
+  - task: AzureCLI@2
+    displayName: "Authenticate to zone-redundant ACR"
+    inputs:
+      azureSubscription: "DCD-CFT-Sandbox"
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az acr login --name hmctssbox
+        
   - template: steps/charts/validate.yaml@cnp-azuredevops-libraries
     parameters:
       chartName: pact-broker
