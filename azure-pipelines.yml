@@ -27,7 +27,7 @@ jobs:
   - task: AzureCLI@2
     displayName: "Authenticate to zone-redundant ACR"
     inputs:
-      azureSubscription: "DCD-CFTAPPS-DEV"
+      azureSubscription: "DCD-CFT-Sandbox"
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
