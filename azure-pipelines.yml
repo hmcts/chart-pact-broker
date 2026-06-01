@@ -38,7 +38,7 @@ jobs:
       chartName: pact-broker
       chartReleaseName: chart-pact-broker-ci-test
       chartNamespace: chart-tests
-      helmInstallTimeout: "1480"
+      helmInstallTimeout: "240"
       helmDeleteWait: "10"
 
 - job: Release
