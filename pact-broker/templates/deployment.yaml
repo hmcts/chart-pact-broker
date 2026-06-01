@@ -39,7 +39,7 @@ spec:
           readOnly: true
         {{- end }}
         env:
-          {{- if eq .Values.databaseType "osba" }}}}
+          {{- if eq .Values.databaseType "osba" }}
           - name: PACT_BROKER_DATABASE_HOST
             valueFrom:
                 secretKeyRef:
