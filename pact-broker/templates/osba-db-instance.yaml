@@ -1,4 +1,4 @@
-{{- if eq .Values.databaseType "osba" }}}}
+{{- if eq .Values.databaseType "osba" }}
 ---
 #
 # Service Catalog Postgresql Instance
