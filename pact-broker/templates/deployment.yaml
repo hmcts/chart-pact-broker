@@ -25,6 +25,7 @@ spec:
           name: kvcreds
       {{- end }}
       serviceAccountName: {{ .Release.Namespace }}
+      enableServiceLinks: {{ .Values.enableServiceLinks }}
       containers:
       - image: {{  required "image " .Values.image }}
         name: {{ .Release.Name }}
@@ -32,7 +33,7 @@ spec:
         command:
           - "/bin/sh"
           - "-c"
-          - "export PACT_BROKER_DATABASE_USERNAME=$(cat /kvmnt/pact-db-user); export PACT_BROKER_DATABASE_PASSWORD=$(cat /kvmnt/pact-db-password); /sbin/my_init"
+          - "export PACT_BROKER_DATABASE_USERNAME=$(cat /kvmnt/pact-db-user); export PACT_BROKER_DATABASE_PASSWORD=$(cat /kvmnt/pact-db-password); {{ required "entrypoint " .Values.entrypoint }}"
         volumeMounts:
         - name: kvcreds
           mountPath: /kvmnt
@@ -97,6 +98,10 @@ spec:
             value: 'true'
           - name: PACT_BROKER_LOG_LEVEL
             value: INFO
+          {{- range $name, $value := .Values.environment }}
+          - name: {{ $name }}
+            value: {{ $value | quote }}
+          {{- end }}
         resources:
           requests:
             memory: {{ required "memoryRequests " .Values.memoryRequests  }}

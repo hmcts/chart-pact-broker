@@ -3,6 +3,9 @@ tenantId: "531ff96d-0ae9-462a-8d2d-bec7c0b42082"
 
 applicationPort: 80
 image: dius/pact-broker:2.102.2.0
+entrypoint: /sbin/my_init
+enableServiceLinks: true
+environment: {}
 memoryRequests: '512Mi'
 cpuRequests: '100m'
 memoryLimits: '1024Mi'
